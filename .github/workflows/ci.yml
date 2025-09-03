@@ -112,5 +112,5 @@ jobs:
         if: ${{ env.SLACK_WEBHOOK_URL != '' }}
         run: |
           text="❌ CI failed for $GITHUB_REPOSITORY on $GITHUB_REF (run #$GITHUB_RUN_NUMBER). Commit: $GITHUB_SHA. https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
-          payload=$(printf '{"text":"%s"}' "${text//"/\"}")
+          payload=$(jq -n --arg text "$text" '{text:$text}')
           curl -X POST -H 'Content-Type: application/json' --data "$payload" "$SLACK_WEBHOOK_URL"
