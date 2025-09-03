@@ -10,8 +10,11 @@ on:
       simulate_failure:
         description: "Force the CI to fail to test Slack alert"
         required: false
-        type: boolean
-        default: false
+        type: choice
+        options:
+          - "false"
+          - "true"
+        default: "false"
 
 jobs:
   test:
@@ -35,7 +38,7 @@ jobs:
           python-version: '3.11'
 
       - name: Simulate failure (manual trigger)
-        if: ${{ github.event_name == 'workflow_dispatch' && fromJSON(inputs.simulate_failure) }}
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.simulate_failure == 'true' }}
         run: |
           echo "Simulating a failure to test Slack alert..."
           exit 1
