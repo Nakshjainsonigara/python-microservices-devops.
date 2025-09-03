@@ -1,0 +1,2 @@
+{'service': 'backend', 'method': 'GET', 'path': '/api/data', 'status': 200}
+{'service': 'backend', 'method': 'GET', 'path': '/favicon.ico', 'status': 404}
