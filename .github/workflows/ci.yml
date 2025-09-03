@@ -108,7 +108,7 @@ jobs:
           server_port: ${{ secrets.SMTP_PORT || 587 }}
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
-          subject: CI failed: ${{ github.repository }} #${{ github.run_number }}
+          subject: "CI failed: ${{ github.repository }} #${{ github.run_number }}"
           to: ${{ secrets.TO_EMAIL }}
           from: ${{ secrets.FROM_EMAIL }}
           content_type: text/plain
