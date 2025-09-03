@@ -5,7 +5,13 @@ on:
     branches: ["**"]
   pull_request:
     branches: ["**"]
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      simulate_failure:
+        description: "Force the CI to fail to test Slack alert"
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   test:
@@ -27,6 +33,12 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
+      - name: Simulate failure (manual trigger)
+        if: ${{ github.event_name == 'workflow_dispatch' && fromJSON(inputs.simulate_failure) }}
+        run: |
+          echo "Simulating a failure to test Slack alert..."
+          exit 1
 
       - name: Install dependencies
         run: |
